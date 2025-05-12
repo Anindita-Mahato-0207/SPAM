@@ -45,7 +45,7 @@ vectorizer = spam_detector['vectorizer']
 nb_model = spam_detector['nb_model']
 lr_model = spam_detector['lr_model']
 rf_model = spam_detector['rf_model']
-clean_text = spam_detector['clean_text']
+# clean_text = spam_detector['clean_text']
 
 def predict_spam(message):
     cleaned_message = clean_text(message)

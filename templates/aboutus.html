@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Spam Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    .about-section {
+  background: url('your-image.jpg') no-repeat center center/cover;
+  padding: 80px 0;
+  color: white;
+  background-color: #424243;
+}
+    .about-hero {
+      background-image: url('https://t4.ftcdn.net/jpg/01/05/85/23/360_F_105852381_NFSzHMa7LxVztC6M733pSweEy01H07FE.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .about-hero h1, .about-hero p {
+      position: relative;
+      z-index: 2;
+      
+    }
+    .about-hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .about-hero p {
+      font-size: 1.25rem;
+    }
+    .about-content, .services-section, .team-section {
+      padding: 60px 0;
+    }
+    .about-content h3, .services-section h2, .team-section h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .about-content ul {
+      list-style: none;
+      padding: 0;
+    }
+    .about-content ul li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .about-content ul li::before {
+      content: '✔️';
+      margin-right: 10px;
+      color: #007bff;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    .service-card i {
+      font-size: 3rem;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    .team-member {
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      object-fit: cover;
+    }
+    .team-member h5 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    .team-member p {
+      font-size: 1rem;
+      color: #555;
+    }
+    .team-member .social-icons a {
+      color: #007bff;
+      margin: 0 5px;
+      font-size: 1.2rem;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="https://via.placeholder.com/40" alt="Logo" class="me-2">Spam Detection
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Detect</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- Hero Section -->
+  <div class="about-hero">
+    <div class="container">
+      <h1>About Us</h1>
+      <p class="lead">Empowering text analysis through intelligent spam detection technology.</p>
+    </div>
+  </div>
+
+  <!-- About Content -->
+  <div class="container about-content">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <div class="mission-card shadow p-4">
+        <h3 class="text-center mb-4"><i class="bi bi-lightbulb-fill text-primary"></i> Our Mission</h3>
+        <p>
+          At <strong>Spam Detection</strong>, our mission is to empower individuals and businesses with cutting-edge spam detection technology. 
+          We aim to create a safer digital environment by leveraging advanced AI algorithms to identify and filter out spam effectively.
+        </p>
+        <p>
+          Whether you're a developer, researcher, or business owner, our tools are designed to simplify your workflow and enhance productivity.
+        </p>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Delivering fast and accurate results</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Ensuring user-friendly integration</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Backed by state-of-the-art AI</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <img src="https://viso.ai/wp-content/uploads/2024/01/Fraud-Detection-Using-Computer-Vision.jpg" alt="Our Mission" class="img-fluid rounded shadow">
+    </div>
+  </div>
+</div>
+
+  <!-- Services Section -->
+  <div class="services-section bg-light">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="row g-4 mt-4">
+        <div class="col-md-4">
+          <div class="service-card">
+            <i class="bi bi-shield-lock"></i>
+            <h5 class="mt-3">Spam Protection</h5>
+            <p>Advanced algorithms to detect and filter out spam messages with high precision.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card">
+            <i class="bi bi-bar-chart-line"></i>
+            <h5 class="mt-3">Text Analytics</h5>
+            <p>Extract key information from texts using named entity recognition and span detection techniques.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card">
+            <i class="bi bi-cloud-upload"></i>
+            <h5 class="mt-3">API Integration</h5>
+            <p>Seamlessly integrate spam detection into your apps and websites with our powerful APIs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Services Section -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-md-7">
+      <h2 class="mb-4">A Smarter Way to Detect Spam</h2>
+      <p>
+        Our Spam Detection system offers cutting-edge technology to protect you from unwanted emails, malware, and phishing attempts. 
+        Whether you are an individual, a business, or a developer, we provide solutions tailored to your needs — ensuring safety, reliability, and peace of mind.
+      </p>
+      <p>
+        Built with modern AI algorithms and a trust-based rating system, our platform ensures your inbox remains clean, secure, and productive.
+      </p>
+      <a href="#" class="btn btn-danger mt-3"><i class="bi bi-shield-lock"></i> Get Started Now</a>
+    </div>
+
+    <div class="col-md-5">
+      <div class="card bg-danger text-white shadow p-4">
+        <h4 class="mb-4">Key Benefits at a Glance</h4>
+        <ul class="list-unstyled">
+          <li class="mb-2">✔️ Accurate spam detection</li>
+          <li class="mb-2">✔️ Real-time threat analysis</li>
+          <li class="mb-2">✔️ Malware-free communication</li>
+          <li class="mb-2">✔️ No false positives</li>
+          <li class="mb-2">✔️ GDPR compliant</li>
+          <li class="mb-2">✔️ Cloud-based & on-premises ready</li>
+          <li class="mb-2">✔️ Easy integration with APIs</li>
+          <li class="mb-2">✔️ 24/7 customer support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <div class="container text-center">
+      <h2>Meet the Team</h2>
+      <div class="row mt-4">
+        <div class="col-md-4 team-member">
+          <img src="https://images.pexels.com/photos/4347368/pexels-photo-4347368.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Team member">
+          <h5>Anindita Mahato</h5>
+          <p>Lead Developer</p>
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 team-member">
+          <img src="https://t3.ftcdn.net/jpg/07/53/50/64/360_F_753506491_wMUFkS3FzZ4zgv859k1bziBuWOIjYkU8.jpg" alt="Team member">
+          <h5>John Doe</h5>
+          <p>UI/UX Designer</p>
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 team-member">
+          <img src="https://t4.ftcdn.net/jpg/13/71/12/91/360_F_1371129169_quM8YOMjxUNIooWVfi96C8gPjVOOHAmp.jpg" alt="Team member">
+          <h5>Jane Smith</h5>
+          <p>ML Engineer</p>
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+{% endblock %}

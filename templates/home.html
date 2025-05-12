@@ -1,0 +1,744 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spam Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .hero-section {
+      background-image: url('https://www.paubox.com/hubfs/How%20Pauboxs%20suite%20of%20inbound%20security%20protects%20against%20cyberattacks.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white; /* Ensure text is visible on the background */
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #424243; /* Fallback color for older browsers */
+    }
+    .hero-section .container {
+      font-size: 1rem;
+      font-weight: 700; 
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.250); /* Semi-transparent black background */
+      padding: 10px 20px;
+      border-radius: 5px;
+      width: 50%; 
+    }
+   
+    .btn-custom {
+      background-color: #ff0000;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+    .info-section {
+      padding: 60px 20px;
+    }
+    .info-section img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .info-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .info-section p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .card-section {
+      padding: 60px 20px;
+      background-color: #f8f9fa;
+    }
+    .card-section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      height: 200px;/* Fixed typo from 'heigh' to 'height' */
+    }
+    .card-body {
+      text-align: center;
+    }
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .card-text {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    .counter-section {
+      padding: 60px 20px;
+      background-color: #ff4d4d; /* Red background */
+      color: white; /* White text for contrast */
+      text-align: center;
+      border-radius: 10px; /* Optional: Add rounded corners */
+    }
+    .counter-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .counter {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white; /* Ensure text is visible on red background */
+    }
+    .counter-heading {
+      font-size: 4rem;
+      margin-top: 10px;
+    }
+    .testimonial-section {
+      background-color: #f8f9fa; /* Light gray background */
+      padding: 60px 20px;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    .testimonial-section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #333; /* Darker text for contrast */
+    }
+    .testimonial-card {
+      background-color: white;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Card shadow */
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-10px); /* Lift effect on hover */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    }
+    .testimonial-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%; /* Circular image */
+      margin-bottom: 15px;
+      border: 3px solid #007bff; /* Add a border around the image */
+    }
+    .testimonial-card h5 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #007bff; /* Primary color for names */
+    }
+    .testimonial-card p {
+      font-size: 1rem;
+      color: #555; /* Subtle text color */
+    }
+    .email-security {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+.email-security .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.email-security .content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-content {
+  flex: 1 1 50%;
+  padding-right: 40px;
+}
+
+.text-content h2 {
+  color: #d71920; /* Red color for heading */
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.text-content h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.text-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #d71920;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  background-color: #a81317;
+}
+
+.video-content {
+  flex: 1 1 45%;
+  text-align: center;
+}
+
+.video-content iframe {
+  width: 100%;
+  height: 315px;
+  border-radius: 8px;
+}
+.our-news {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.our-news .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.our-news h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.news-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.featured-news {
+  flex: 1 1 60%;
+}
+
+.featured-news img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  height: 300px; /* Fixed height for the image */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease;
+  width: 90%;
+}
+
+.featured-news .date {
+  font-size: 14px;
+  color: #888;
+}
+
+.featured-news h3 {
+  font-size: 24px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.featured-news .description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.recent-news {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.news-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.news-info .date {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.news-info h4 {
+  font-size: 16px;
+  color: #000;
+  margin: 0;
+  font-weight: bold;
+}
+
+.features-section {
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.feature-card {
+  background: #f9f9f9;
+  padding: 30px 20px;
+  border-radius: 12px;
+  height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.feature-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid #d32f2f;
+  border-radius: 50%;
+  padding: 8px;
+  background-color: #fff;
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.feature-description {
+  font-size: .95rem;
+  color: #666;
+  min-height: 80px;
+}
+
+.btn-danger {
+  background-color: #d32f2f;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="container">
+      <h1>Welcome to Spam Detection</h1>
+      <p>Your trusted solution to identify spam in textual data efficiently.</p>
+      <a href="#detect" class="btn btn-custom">Try Detection</a>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="info-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="https://img.freepik.com/free-photo/cybersecurity-concept-collage-design_23-2151877155.jpg" alt="Spam Detection Illustration">
+        </div>
+        <div class="col-md-6">
+          <h2>Why Choose Our Spam Detection?</h2>
+          <p style="text-align: justify;">
+            Our spam detection system leverages advanced machine learning algorithms to accurately identify spam messages. 
+            Whether it's emails, text messages, or other forms of communication, our solution ensures that you stay protected 
+            from unwanted and potentially harmful content. With a user-friendly interface and high accuracy, our tool is 
+            designed to meet the needs of individuals and businesses alike. Start detecting spam today and experience the 
+            difference in efficiency and reliability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <section class="features-section py-5">
+    <div class="container">
+      <div class="row text-center">
+        <h2>Our Features</h2>
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature-card">
+            <div class="feature-image mb-3">
+              <img src="https://media.istockphoto.com/id/1780170520/vector/shield-protect-notebook-and-defense-spam-from-network.jpg?s=612x612&w=0&k=20&c=bPT0Qokc5DuGfK-5_3quo4qTQm6Uce2yRGNFb-HkK8E=" alt="Shield Image" class="img-fluid">
+            </div>
+            <h4 class="feature-title">Reliably fend off malware and spam</h4>
+            <p class="feature-description">
+              Advanced protection against threats like Emotet, WannaCry, and QakBot with cutting-edge technology.
+            </p>
+            <a href="#" class="btn btn-danger btn-sm mt-3">More info</a>
+          </div>
+        </div>
+  
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature-card">
+            <div class="feature-image mb-3">
+              <img src="https://cdn.mos.cms.futurecdn.net/iAhKKqLo57p5QoNHBjQJTL.jpg" alt="Lock Image" class="img-fluid">
+            </div>
+            <h4 class="feature-title">Securely encrypt your emails</h4>
+            <p class="feature-description">
+              Easily encrypt emails with S/MIME and PGP, ensuring GDPR-compliant communication.
+            </p>
+            <a href="#" class="btn btn-danger btn-sm mt-3">More info</a>
+          </div>
+        </div>
+  
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature-card">
+            <div class="feature-image mb-3">
+              <img src="https://miro.medium.com/v2/resize:fit:600/0*igDW-qYQQh_FS0Ky.jpg" alt="File Upload Image" class="img-fluid">
+            </div>
+            <h4 class="feature-title">Send your large files easily</h4>
+            <p class="feature-description">
+              Share large files securely and directly from your email without disruptions.
+            </p>
+            <a href="#" class="btn btn-danger btn-sm mt-3">More info</a>
+          </div>
+        </div>
+  
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="feature-card">
+            <div class="feature-image mb-3">
+              <img src="https://mailsafi.com/blog/wp-content/uploads/2023/07/11189638_4618891-scaled.jpg" alt="User Image" class="img-fluid">
+            </div>
+            <h4 class="feature-title">Easily manage your email disclaimers</h4>
+            <p class="feature-description">
+              Create, manage, and deploy email disclaimers company-wide without third-party tools.
+            </p>
+            <a href="#" class="btn btn-danger btn-sm mt-3">More info</a>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+  
+
+
+
+
+  
+  <!-- Card Section -->
+  <!-- <div class="card-section">
+    <div class="container">
+      <h2>Our Features</h2>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card">
+            <img src="https://media.istockphoto.com/id/1780170520/vector/shield-protect-notebook-and-defense-spam-from-network.jpg?s=612x612&w=0&k=20&c=bPT0Qokc5DuGfK-5_3quo4qTQm6Uce2yRGNFb-HkK8E=" class="card-img-top" alt="Feature 1">
+            <div class="card-body">
+              <h5 class="card-title">Real-Time Detection</h5>
+              <p class="card-text">Identify spam messages instantly with our real-time detection system powered by AI.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img src="https://cdn.mos.cms.futurecdn.net/iAhKKqLo57p5QoNHBjQJTL.jpg" class="card-img-top" alt="Feature 2">
+            <div class="card-body">
+              <h5 class="card-title">High Accuracy</h5>
+              <p class="card-text">Achieve over 95% accuracy in detecting spam with our advanced algorithms.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img src="https://miro.medium.com/v2/resize:fit:600/0*igDW-qYQQh_FS0Ky.jpg" class="card-img-top" alt="Feature 3">
+            <div class="card-body">
+              <h5 class="card-title">Customizable Filters</h5>
+              <p class="card-text">Tailor spam detection rules to meet your specific needs and preferences.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img src="https://mailsafi.com/blog/wp-content/uploads/2023/07/11189638_4618891-scaled.jpg" class="card-img-top" alt="Feature 4">
+            <div class="card-body">
+              <h5 class="card-title">User-Friendly Interface</h5>
+              <p class="card-text">Easily navigate and use our tool with an intuitive and simple interface.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <section class="email-security">
+    <div class="container">
+      <div class="content">
+        <div class="text-content">
+          <h2>Email Problems</h2>
+          <h3>Either in the cloud or on your own server.<br>Always Made in Germany.</h3>
+          <p>NoSpamProxy is a complete Email security gateway and bears the seal of quality IT Security Made in Germany. For more than 15 years, NoSpamProxy has stood for reliability and competence more than any other solution. Our experience and the constant exchange with customers and partners are the basis for continuous further development.</p>
+          <p>NoSpamProxy Cloud means uncompromising Email security that ties up fewer IT resources in the company than any other solution. For those who want to guarantee their Email security as an on-premises installation, we offer the same features and functionalities with NoSpamProxy Server.</p>
+          <a href="#" class="cta-button">Start your free trial now</a>
+        </div>
+        <div class="video-content">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/rxkGItX5gGE?si=_DtaOxwawQmzWVFT&amp;start=11" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+<div class="scam-alert-section">
+  <div class="container">
+    <h2 class="text-center mb-5">Scam Alert and Trends</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://img.freepik.com/premium-vector/red-spam-detected-icon-phishing-scam-hacking-concept-cyber-security-concept-alert-message_123447-1495.jpg" alt="Icon 1">
+            </div>
+            <h5 class="card-title">Trap Scams</h5>
+            <p class="card-text">Stay informed about the latest phishing scams targeting users worldwide. Protect your data and avoid falling victim to fraudulent schemes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://img.freepik.com/premium-vector/no-spam-spam-email-warning-concept-virus-piracy-hacking-security-envelope-with-spam_100456-9789.jpg" alt="Icon 2">
+            </div>
+            <h5 class="card-title">Email Fraud</h5>
+            <p class="card-text">Learn about trending email fraud tactics and how to identify suspicious emails to safeguard your personal and professional information.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://static.vecteezy.com/system/resources/previews/037/004/842/non_2x/red-spam-detected-icon-phishing-scam-hacking-concept-cyber-security-concept-alert-message-vector.jpg" alt="Icon 3">
+            </div>
+            <h5 class="card-title">Social Media Scams</h5>
+            <p class="card-text">Discover the latest scams circulating on social media platforms and learn how to recognize and report them effectively.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="scam-alert-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://www.shutterstock.com/shutterstock/videos/1078885064/thumb/4.jpg?ip=x480" alt="Icon 1">
+            </div>
+            <h5 class="card-title">Phishing Scams</h5>
+            <p class="card-text">Stay informed about the latest phishing scams targeting users worldwide. Protect your data and avoid falling victim to fraudulent schemes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://www.shutterstock.com/shutterstock/videos/1078500425/thumb/6.jpg?ip=x480" alt="Icon 2">
+            </div>
+            <h5 class="card-title">Email Fraud</h5>
+            <p class="card-text">Learn about trending email fraud tactics and how to identify suspicious emails to safeguard your personal and professional information.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="icon mb-3">
+              <img src="https://networks.imdea.org/wp-content/uploads/2025/02/media-file-scam.png" alt="Icon 3">
+            </div>
+            <h5 class="card-title">Social Media Scams</h5>
+            <p class="card-text">Discover the latest scams circulating on social media platforms and learn how to recognize and report them effectively.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="download-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="info-section">
+        <div class="container">
+          <div class="row align-items-center">
+            
+          </div>
+        </div>
+      </div>
+     
+      <!-- Left: Banner Image -->
+      <div class="col-md-6">
+        <img src="https://www.nospamproxy.de/wp-content/uploads/Slider_NoSpamProxy_Protection.png" alt="Download App Banner" class="img-fluid">
+      </div>
+      <!-- Right: Text and Store Buttons -->
+      <div class="col-md-6">
+        <h2>Get Our App</h2>
+        <p>
+          Experience the power of spam detection on the go. Download our app to stay protected from spam messages and scams anytime, anywhere. 
+          Available on both Android and iOS platforms.
+        </p>
+        <div class="store-buttons">
+          <a href="#" class="btn btn-dark me-2">
+            <img src="https://via.placeholder.com/150x50?text=Google+Play" alt="Google Play">
+          </a>
+          <a href="#" class="btn btn-dark">
+            <img src="https://via.placeholder.com/150x50?text=App+Store" alt="App Store">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="subscribe-section">
+  <div class="container text-center py-5">
+    <h2>Subscribe to Our Weekly Newsletter</h2>
+    <p>Stay updated with the latest trends, tips, and insights on spam detection and online safety.</p>
+    <form class="d-flex justify-content-center mt-4">
+      <input type="email" class="form-control w-50 me-2" placeholder="Enter your email" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </div>
+</div>
+<section class="our-news">
+  <div class="container">
+    <h2>Our news</h2>
+    <div class="news-content">
+      <!-- Left Side: Featured News -->
+      <div class="featured-news">
+        <img src="https://media.licdn.com/dms/image/v2/C5612AQEE-RxTVHrsig/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520122684757?e=2147483647&v=beta&t=3umZH614mfyjNs6IF3bbwf_r_QtXCM2pWuVAtTWKPy8" alt="Zero Day Exploit">
+        <p class="date">23.04.2025</p>
+        <h3>What is a Zero-Day Exploit?</h3>
+        <p class="description">
+          Zero-day exploits are among the most dangerous threats in IT security. They exploit previously unknown vulnerabilities in software for which no protective measures yet exist, making them particularly insidious...
+        </p>
+      </div>
+
+      <!-- Right Side: Recent News List -->
+      <div class="recent-news">
+        <div class="news-item">
+          <img src="https://cdn.sanity.io/images/k34k3zzn/production/a98b6917c316e46875338943339a16afd6b9a4f5-4800x2520.png?w=1536&h=806&auto=format" alt="Google Email Guidelines">
+          <div class="news-info">
+            <p class="date">17.04.2025</p>
+            <h4>UPDATE: New Google email sender guidelines: What you need to do</h4>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <img src="https://t4.ftcdn.net/jpg/12/14/38/93/360_F_1214389354_RzQyDsv2YpQv3jX6XAEclDpTdMHoxJFB.jpg" alt="What is spoofing">
+          <div class="news-info">
+            <p class="date">11.04.2025</p>
+            <h4>What is spoofing?</h4>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <img src="https://t3.ftcdn.net/jpg/09/91/93/30/360_F_991933018_96GTzijuZsB9jRTqqxP2Ip31zQvPl0SR.jpg" alt="NoSpamProxy and Dropsuite Partnership">
+          <div class="news-info">
+            <p class="date">10.04.2025</p>
+            <h4>NoSpamProxy and Dropsuite form strategic partnership for enhanced email security, archiving and backup</h4>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHk-taqMTZXznSNNfz3QV7bcpS0NssRzE5fGhRDwXQw9MWEfmzyTh3s6FcFt1EdXZDm4Y&usqp=CAU" alt="NoSpamProxy Cloud Update">
+          <div class="news-info">
+            <p class="date">03.04.2025</p>
+            <h4>NoSpamProxy Cloud March update now available</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="testimonial-section">
+  <div class="container">
+    <h2>What Our Users Say</h2>
+    <div class="row">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <img src="https://media.istockphoto.com/id/1299849490/photo/portrait-of-a-black-woman.jpg?s=612x612&w=0&k=20&c=A8rgh5fd9glKs5rvZ3E_5CpxRKYmhl_wcA0iVifuME8=" alt="User 1">
+          <h5>John Doe</h5>
+          <p>"This spam detection tool has been a game-changer for me. It’s accurate, fast, and easy to use!"</p>
+        </div>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <img src="https://media.istockphoto.com/id/1299849490/photo/portrait-of-a-black-woman.jpg?s=612x612&w=0&k=20&c=A8rgh5fd9glKs5rvZ3E_5CpxRKYmhl_wcA0iVifuME8=" alt="User 2">
+          <h5>Jane Smith</h5>
+          <p>"Thanks to this tool, I no longer have to worry about spam emails cluttering my inbox."</p>
+        </div>
+      </div>
+      <!-- Testimonial 3 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <img src="https://www.familydentalpracticewatertown.com/wp-content/uploads/bfi_thumb/Smiling-Woman-at-a-Picnic-Table-6rvont0umftblyge0xcth9bifsib3si993f9m7bswq2.jpg" alt="User 3">
+          <h5>Michael Lee</h5>
+          <p>"Highly recommend this service to anyone looking for reliable spam detection solutions."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

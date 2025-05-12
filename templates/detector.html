@@ -1,0 +1,609 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spam Detector - Spam Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    
+
+    /* Hero Section with Gradient */
+    .detector-hero {
+      background: linear-gradient(135deg, #6a11cb, #2574fc6d, #00c6ff); /* Three gradient colors */
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      height: 40vh;
+    }
+    .detector-hero h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .detector-hero p {
+      font-size: 1.25rem;
+    }
+
+    /* Form Section with Background Image */
+    .form-section {
+      background-image: url('https://www.medianama.com/wp-content/uploads/2023/06/spam-g742071dd1_1280-300x200.jpg'); /* Replace with your image URL */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      padding: 40px 30px;
+      color: white;
+      width: 60%;
+      height: 50vh;
+      /* margin: 0 auto;  */
+    }
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+      z-index: 1;
+    }
+    .form-section form {
+      position: relative;
+      z-index: 2;
+    }
+    .form-section label {
+      color: white;
+    }
+
+    /* Card Section */
+    .card-section {
+      padding: 60px 20px;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      height: 200px;
+      object-fit: cover;
+    }
+    .feedback-container {
+      max-width: 550px;
+      margin: 60px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f1f1f1;
+    }
+
+    .feedback-title {
+      text-align: center;
+      font-weight: 800;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .feedback-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .feedback-question {
+      font-weight: 600;
+      font-size: 17px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .emoji-row {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 15px;
+      resize: none;
+      font-family: inherit;
+      color: #444;
+    }
+
+    .share-btn {
+      margin-top: 18px;
+      width: 100%;
+      background-color: #fff;
+      color: #f4316b;
+      border: 2px solid #f4316b;
+      font-weight: 600;
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .share-btn:hover {
+      background-color: #f4316b;
+      color: #fff;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .highlight {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .urgency { background: #fbc2c4; color: #600; }
+    .shady { background: #f8d5f0; color: #600; }
+    .overpromise { background: #fcd49d; color: #774200; }
+    .unnatural { background: #d6d6d6; color: #333; }
+
+    .spam-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      gap: 20px;
+      padding: 20px; /* Added padding for better spacing */
+      
+    }
+
+    .email-box {
+      flex: 2;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 30px;
+      font-size: 16px;
+      line-height: 1.7;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .score-panel {
+      flex: 1;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 25px;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .score-panel .score {
+      font-weight: bold;
+      font-size: 18px;
+      color: #d83a3a;
+    }
+
+    .score-panel .read-time {
+      font-weight: 600;
+      color: #2d2d2d;
+    }
+
+    .tag {
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      background-color: #f8f8f8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .tag span.emoji {
+      font-size: 18px;
+    }
+
+    .tag.urgency { border-left: 4px solid #ff8a8a; }
+    .tag.shady { border-left: 4px solid #f79dde; }
+    .tag.overpromise { border-left: 4px solid #ffc66d; }
+    .tag.unnatural { border-left: 4px solid #bbb; }
+    
+    h2 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+    .promo-container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .promo-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7b8efc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .promo-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 15px;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      font-size: 16px;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    .features span::before {
+      content: '✔️';
+      margin-right: 8px;
+      color: #ff4d88;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: #ff4d88;
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #e84376;
+    }
+
+    .btn-outline {
+      background-color: white;
+      color: #ff4d88;
+      border: 2px solid #ff4d88;
+    }
+
+    .btn-outline:hover {
+      background-color: #ffeaf1;
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<div class="detector-hero">
+  <div class="container">
+    <h1>Your Anti-Scam Partner, Keeping You Safe!</h1>
+    <p class="lead">Quick check for scams, and report scams with a single click to help protect others</p>
+  </div>
+</div>
+
+<div class="subtitle"></div>
+<h2>Spam Checker</h2>
+<div class="subtitle">Copy/paste an email message to detect and remove <a href="#" style="color:#467ff7;">spam words</a>.</div>
+
+<div class="spam-container">
+  <!-- Left: Email text -->
+  <div class="container-fluid form-section">
+    <form action="/predict" method="POST">
+      <div class="mb-3">
+        <label for="userText" class="form-label">Enter Your Mails & Massages...</label>
+        <textarea class="form-control" name="message" id="userText" rows="4" placeholder="Type or paste the suspicious text here..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-danger">Check Scam</button>
+    </form>
+    <div id="resultBox" class="alert mt-4"></div>
+  </div>
+
+  <!-- Right: Score panel -->
+  <div class="score-panel">
+    <div><strong>Overall score:</strong> <span class="score">Poor</span></div>
+    <div><strong>Words:</strong> 57</div>
+    <div><strong>Read time:</strong> <span class="read-time">a few seconds</span></div>
+
+    <div class="tag urgency"><span class="emoji">🎯</span> Urgency (1)</div>
+    <div class="tag shady"><span class="emoji">🔍</span> Shady (4)</div>
+    <div class="tag overpromise"><span class="emoji">🧃</span> Overpromise (2)</div>
+    <div class="tag unnatural"><span class="emoji">💬</span> Unnatural (1)</div>
+  </div>
+</div>
+
+<!-- Form Section -->
+<!-- <div class="container-fluid form-section">
+  <form action="/predict" method="POST">
+    <div class="mb-3">
+      <label for="userText" class="form-label">Enter website, phone, crypto address...</label>
+      <textarea class="form-control" name="message" id="userText" rows="4" placeholder="Type or paste the suspicious text here..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-danger">Check Scam</button>
+  </form>
+  <div id="resultBox" class="alert mt-4"></div>
+</div> -->
+
+<!-- Card Section -->
+<div class="card-section">
+  <div class="container">
+    <h2 class="text-center mb-5">Latest News and Updates</h2>
+    <div class="row">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROEYVqd3RwUOwhnsDZzTOczFPQWlgeW2NPSsgmGyACONIacrRbVK9HZC-HVl4R0Friiig&usqp=CAU" class="card-img-top" alt="News 1">
+          <div class="card-body">
+            <h5 class="card-title">New Scam Alert: Phishing Emails</h5>
+            <p class="card-text">Learn how to identify phishing emails and protect your sensitive information from cybercriminals.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.naturalnetworks.com/files/2023/03/Importance-of-Email-Spam-Filter.jpg" class="card-img-top" alt="News 2">
+          <div class="card-body">
+            <h5 class="card-title">Top 5 Tips to Avoid Online Scams</h5>
+            <p class="card-text">Discover practical tips to stay safe online and avoid falling victim to common scams.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://i.ytimg.com/vi/AVVrDD4diC0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC9CdD6UGr3F47_480Imjn-R6kPrA" class="card-img-top" alt="News 3">
+          <div class="card-body">
+            <h5 class="card-title">How AI is Revolutionizing Spam Detection</h5>
+            <p class="card-text">Explore how artificial intelligence is transforming the way we detect and prevent spam.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feedback-section d-flex">
+  <!-- FAQ Section -->
+  <div class="faq-container">
+    <h2>Questions & Answers</h2>
+    <p class="subtitle">Everything you need to know about spam detection.</p>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        How does spam detection work?
+        <span class="faq-toggle">⌄</span>
+      </div>
+      <div class="faq-answer">Spam detection uses algorithms to identify spam keywords and filter them accordingly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Is spam detection free?
+        <span class="faq-toggle">⌄</span>
+      </div>
+      <div class="faq-answer">Yes, basic features are free, while advanced checks may require a subscription.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Is my data safe?
+        <span class="faq-toggle">⌄</span>
+      </div>
+      <div class="faq-answer">Absolutely. We ensure complete privacy and do not store or misuse your data.</div>
+    </div>
+  </div>
+
+  <!-- Feedback Container -->
+  <div class="feedback-container">
+    <div class="feedback-title">Questions? Comments?</div>
+    <div class="feedback-subtitle">Feel free to let us know what you think.</div>
+
+    <div class="feedback-question">How satisfied were you with the results?</div>
+
+    <div class="emoji-row">
+      😞 😕 😐 🙂 😄
+    </div>
+
+    <textarea class="feedback-textarea" rows="4" placeholder="Your comments and feedback help improve our solutions"></textarea>
+
+    <button class="share-btn">SHARE FEEDBACK</button>
+  </div>
+</div>
+
+
+<div class="promo-container">
+  <div class="promo-label">BROUGHT TO YOU BY MAILMETEOR</div>
+  <div class="promo-title">The Best Rated Mail Merge for Gmail</div>
+  
+  <div class="features">
+    <span>up to 2,000 emails/day</span>
+    <span>Rated 4.9/5 out of 10,000+ reviews</span>
+    <span>Free plan available</span>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-primary">GET STARTED WITH MAILMETEOR</button>
+    <button class="btn btn-outline">DISCOVER MORE TOOLS</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<style>
+  .feedback-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding: 20px 10px;
+  }
+
+  /* FAQ Section */
+  .faq-container {
+    flex: 1;
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-container h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .faq-container .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+
+  .faq-question {
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question:hover {
+    background-color: #f1f1f1;
+  }
+
+  .faq-answer {
+    padding: 10px;
+    display: none;
+    color: #444;
+  }
+
+  .faq-item.open .faq-answer {
+    display: block;
+  }
+
+  .faq-toggle {
+    font-size: 18px;
+    color: #007bff;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.open .faq-toggle {
+    transform: rotate(180deg);
+  }
+
+  /* Feedback Container */
+  .feedback-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .feedback-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .feedback-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .feedback-question {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .emoji-row {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .feedback-textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+  }
+
+  .share-btn {
+    margin-top: 15px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .share-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      question.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+{% endblock %}
